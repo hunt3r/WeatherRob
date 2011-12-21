@@ -1,0 +1,13 @@
+You will need a proxy to make this work.  If you're on a mac, add a vhost to your local apache that looks like this:
+
+
+<VirtualHost *:80>
+   DocumentRoot /Library/WebServer/Documents/<yourfolder or symlink>
+   ServerName weatherrob.local
+
+   AcceptPathInfo On
+
+   ProxyPass /yahooweather/ http://weather.yahooapis.com/
+   ProxyPassReverse /yahooweather/ http://weather.yahooapis.com/
+
+</VirtualHost>
