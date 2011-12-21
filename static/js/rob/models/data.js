@@ -20,14 +20,17 @@ rob.Data = (function() {
 	Data.prototype.getLocation = function(address) {
 		var self = this;
 		console.log("Getting location");
+		var searchUrl = self.constants.URLS.GEOLOCATION + escape(address);
+		var location;
 		$.ajax({
-			url: self.constants.URLS.GEOLOCATION,
 			type: 'get',
+			url: searchUrl,
 			success: function(data) {
-				if(data.ResultsSet && data.ResultsSet.Results.length>0) {
+				if(data.hasOwnProperty("ResultSet") && data.ResultSet.Results.length>0) {
 					location = data.ResultSet.Results[0];
 				}
 			},
+			async: false,
 			dataType: 'json'
 		});
 		return location;
@@ -35,7 +38,8 @@ rob.Data = (function() {
 
 	Data.prototype.updateModel = function() {
 		var self = this;
-		self.location = self.getLocation(self.constants.LOCATIONS.CONSHY.ADDRESS);
+		self.location=self.getLocation(self.constants.LOCATIONS.CONSHY.ADDRESS);
+		console.log(self.location);
 	}
 
 	return Data; 
