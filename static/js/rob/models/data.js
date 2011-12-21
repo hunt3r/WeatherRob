@@ -10,16 +10,17 @@ rob.Data = (function() {
 	function Data() {
 		var self = this;
 		self.location;
+		self.model = {};
 		self.constants = new rob.Constants();
 		self.updateModel();
 	}
+
 
 	/**
 	 * get the location data from the API
 	 */
 	Data.prototype.getLocation = function(address) {
 		var self = this;
-		console.log("Getting location");
 		var searchUrl = self.constants.URLS.GEOLOCATION + escape(address);
 		var location;
 		$.ajax({
@@ -36,10 +37,30 @@ rob.Data = (function() {
 		return location;
 	}
 
+	Data.prototype.getWeatherForLocation = function(woeid) {
+		var self = this;
+		var weatherUrl = self.constants.URLS.WEATHER + woeid;
+		var weatherData;
+		$.ajax({
+			type: 'get',
+			url: weatherUrl,
+			success: function(data) {
+				weatherData = data;
+			},
+			async: false,
+			dataType: 'json'
+		});
+
+		return weatherData;
+	}
+
 	Data.prototype.updateModel = function() {
 		var self = this;
-		self.location=self.getLocation(self.constants.LOCATIONS.CONSHY.ADDRESS);
-		console.log(self.location);
+		self.model.location = self.getLocation(self.constants.LOCATIONS.CONSHY.ADDRESS);
+		if(self.model.location) {
+			self.model.weatherData = self.getWeatherForLocation(self.model.location.woeid);
+		}
+		console.log(self.model);
 	}
 
 	return Data; 

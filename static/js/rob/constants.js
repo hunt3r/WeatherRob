@@ -7,7 +7,8 @@ rob.Constants = function() {
 			}
 		},
 		URLS : {
-			GEOLOCATION : "http://where.yahooapis.com/geocode?flags=j&q="
+			GEOLOCATION : "http://where.yahooapis.com/geocode?flags=j&q=",
+			WEATHER : "yahooweather/forecastjson?w="
 		}
 	}
 }
