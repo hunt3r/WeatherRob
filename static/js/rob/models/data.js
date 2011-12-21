@@ -12,7 +12,7 @@ rob.Data = (function() {
 		self.location;
 		self.model = {};
 		self.constants = new rob.Constants();
-		self.updateModel();
+		self.updateModel(self.constants.LOCATIONS.CONSHY.ADDRESS);
 	}
 
 
@@ -54,13 +54,18 @@ rob.Data = (function() {
 		return weatherData;
 	}
 
-	Data.prototype.updateModel = function() {
+	Data.prototype.updateModel = function(locationSearch) {
 		var self = this;
-		self.model.location = self.getLocation(self.constants.LOCATIONS.CONSHY.ADDRESS);
+		self.model.location = self.getLocation();
 		if(self.model.location) {
 			self.model.weatherData = self.getWeatherForLocation(self.model.location.woeid);
 		}
 		console.log(self.model);
+	}
+
+	Data.prototype.setColor = function() {
+		var self = this;
+		
 	}
 
 	return Data; 
