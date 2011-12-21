@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Welcome to Hell Track!</title>
+		<link rel="stylesheet" type="text/css" href="static/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="static/css/style.css" />
+		<!-- External Libraries -->
+		<script type="text/javascript" src="static/js/lib/jquery.min.js"></script>
+		<script type="text/javascript" src="static/js/lib/underscore-min.js"></script>
+		<script type="text/javascript" src="static/js/lib/backbone-min.js"></script>
+		<script type="text/javascript" src="static/js/lib/box2d.min.js"></script>
+
+		<!-- Internal Libraries and Constants -->
+		<script type="text/javascript" src="static/js/rob/app.js" ></script>
+		<script type="text/javascript" src="static/js/rob/constants.js" ></script>
+
+		<!-- Models --> 
+		<script type="text/javascript" src="static/js/rob/models/data.js" ></script>
+		<!-- Document Context -->
+		<script type="text/javascript">
+			
+			/**
+			 * Run the rob application
+			 */
+			$(document).ready(function() {
+				this.data = new rob.Data();
+			});
+
+		</script>
+
+	</head>
+	<body>
+		<div id="rob-container" class="clearfix">
+			<div id="log">
+			</div>
+		</div>
+	</body>
+</html>
