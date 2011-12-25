@@ -1,0 +1,3 @@
+[submodule "static/js/lib/mustache"]
+	path = static/js/lib/mustache
+	url = https://github.com/janl/mustache.js.git

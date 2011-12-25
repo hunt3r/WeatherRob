@@ -1,17 +1,17 @@
 
 /**
- * Rider Controller
+ * main model
  */
-rob.Data = (function() {
+empathylab.weatherrob.Model = (function() {
 
 	/**
 	 * Constructor
 	 */
-	function Data() {
+	function Model() {
 		var self = this;
 		self.location;
 		self.model = {};
-		self.constants = new rob.Constants();
+		self.constants = new empathylab.weatherrob.Constants();
 		self.updateModel(self.constants.LOCATIONS.CONSHY.ADDRESS);
 	}
 
@@ -19,7 +19,7 @@ rob.Data = (function() {
 	/**
 	 * get the location data from the API
 	 */
-	Data.prototype.getLocation = function(address) {
+	Model.prototype.getLocation = function(address) {
 		var self = this;
 		var searchUrl = self.constants.URLS.GEOLOCATION + escape(address);
 		var location;
@@ -35,9 +35,9 @@ rob.Data = (function() {
 			dataType: 'json'
 		});
 		return location;
-	}
+	};
 
-	Data.prototype.getWeatherForLocation = function(woeid) {
+	Model.prototype.getWeatherForLocation = function(woeid) {
 		var self = this;
 		var weatherUrl = self.constants.URLS.WEATHER + woeid;
 		var weatherData;
@@ -52,22 +52,22 @@ rob.Data = (function() {
 		});
 
 		return weatherData;
-	}
+	};
 
-	Data.prototype.updateModel = function(locationSearch) {
+	Model.prototype.updateModel = function(locationSearch) {
 		var self = this;
-		self.model.location = self.getLocation();
+		self.model.location = self.getLocation(locationSearch);
 		if(self.model.location) {
 			self.model.weatherData = self.getWeatherForLocation(self.model.location.woeid);
 		}
 		console.log(self.model);
-	}
+	};
 
-	Data.prototype.setColor = function() {
+	Model.prototype.setColor = function() {
 		var self = this;
 		
-	}
+	};
 
-	return Data; 
+	return Model; 
 
 })();

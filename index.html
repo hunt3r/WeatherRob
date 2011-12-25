@@ -9,22 +9,26 @@
 		<script type="text/javascript" src="static/js/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/lib/underscore-min.js"></script>
 		<script type="text/javascript" src="static/js/lib/backbone-min.js"></script>
-		<script type="text/javascript" src="static/js/lib/box2d.min.js"></script>
+		<script type="text/javascript" src="static/js/lib/mustache/mustache.js"></script>
 
 		<!-- Internal Libraries and Constants -->
-		<script type="text/javascript" src="static/js/rob/app.js" ></script>
-		<script type="text/javascript" src="static/js/rob/constants.js" ></script>
+		<script type="text/javascript" src="static/js/weatherrob/app.js" ></script>
+		<script type="text/javascript" src="static/js/weatherrob/constants.js" ></script>
 
 		<!-- Models --> 
-		<script type="text/javascript" src="static/js/rob/models/data.js" ></script>
+		<script type="text/javascript" src="static/js/weatherrob/model.js" ></script>
+		<script type="text/javascript" src="static/js/weatherrob/controller.js" ></script>
+
+				
+
 		<!-- Document Context -->
 		<script type="text/javascript">
 			
 			/**
-			 * Run the rob application
+			 * Run the weatherrob application
 			 */
 			$(document).ready(function() {
-				this.data = new rob.Data();
+				
 			});
 
 		</script>
@@ -34,6 +38,7 @@
 		<div id="rob-container" class="clearfix">
 			<div id="log">
 			</div>
+			<input type="textbox" name="location-search" id="txt-search" />
 		</div>
 	</body>
 </html>
