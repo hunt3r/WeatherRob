@@ -1,19 +1,23 @@
-You will need a proxy to make this work.  
+You will need a proxy to make this work.  Here's a sampe vhost I used to make it work on an ubuntu server.  OSX shouldn't be much different.
 
-On mac this is located: 
 <VirtualHost *:80>
-   DocumentRoot "/Library/WebServer/Documents/weatherrob"
-   ServerName weatherrob.local
+   DocumentRoot "/var/www/weatherrob"
+   ServerName weatherrob.flitlife.com
 
    AcceptPathInfo On
 
+   <proxy>
+     Order deny,allow
+     Allow from all
+   </proxy>
+   
    ProxyPass /api/weather/ http://weather.yahooapis.com/
    ProxyPassReverse /api/weather http://weather.yahooapis.com/
-
+   
    ProxyPass /api/where/ http://where.yahooapis.com/
    ProxyPassReverse /api/where/ http://where.yahooapis.com/
 
-   <Directory /Library/WebServer/Documents/weatherrob>
+   <Directory /var/www/weatherrob>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
