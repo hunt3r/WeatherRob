@@ -2,10 +2,12 @@ $outer_width : 1000px;
 $outer_height : 500px;
 
 #rob-container {
-	position: absolute;
-	left: 50%;
-	top: 50%;
+	position: relative;
+	margin: 1em auto;
+
 	background: #eee;
+	height: 400px;
+	width: 960px;
 }
 
 #rob-canvas {
@@ -14,15 +16,26 @@ $outer_height : 500px;
   
 }
 
-#log {
-	position: fixed;
+#badge {
+	position: absolute;
 	top: 1em;
-	right: 1em;
-	width: 300px;
+	left: 1em;
+
 	z-index: 500;
-	background: #ccc;
+	background: #fff;
 	padding: 1em;
-	display: none;
+	ul {
+		margin: 0;
+		padding: 0;
+		li {
+			list-style:none;
+		}
+	}
+
+	.value {
+		font-weight: 800;
+	}
+
 }
 
 .inner {
@@ -56,12 +69,29 @@ $outer_height : 500px;
 	
 }
 
-
-
 .clearfix:after {
     content: ".";
     display: block;
     height: 0;
     clear: both;
     visibility: hidden;
+}
+
+#search-container {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	label {
+		color: #f47f1f;
+		font-size: 125%;
+	}
+	#txt-searchbox {
+		font-size: 1.5em;
+		padding: 4px;
+	}
+}
+
+#color {
+	width: 100px;
+	height: 100px;
 }

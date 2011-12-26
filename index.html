@@ -10,9 +10,14 @@
 		<script type="text/javascript" src="static/js/lib/underscore-min.js"></script>
 		<script type="text/javascript" src="static/js/lib/backbone-min.js"></script>
 		<script type="text/javascript" src="static/js/lib/mustache/mustache.js"></script>
-
+		<script type="text/javascript" src="static/js/lib/raphael.js"></script>
 		<!-- Internal Libraries and Constants -->
 		<script type="text/javascript" src="static/js/weatherrob/app.js" ></script>
+
+		<!-- Templates -->
+		<script type="text/javascript" src="static/js/weatherrob/templates/current_condition.tmpl.js" ></script>
+
+
 		<script type="text/javascript" src="static/js/weatherrob/constants.js" ></script>
 
 		<!-- Models --> 
@@ -28,7 +33,7 @@
 			 * Run the weatherrob application
 			 */
 			$(document).ready(function() {
-				
+				var controller = new empathylab.weatherrob.Controller();
 			});
 
 		</script>
@@ -38,7 +43,14 @@
 		<div id="rob-container" class="clearfix">
 			<div id="log">
 			</div>
-			<input type="textbox" name="location-search" id="txt-search" />
+			<div id="badge">
+
+			</div>
+			<div id="search-container">
+				<label for="searchbox">Location Search: </label>
+				<input type="textbox" name="searchbox" id="txt-searchbox" />
+			</div>
+			<div id="color"></div>
 		</div>
 	</body>
 </html>

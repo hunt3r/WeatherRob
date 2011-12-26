@@ -1,24 +1,28 @@
 #rob-container {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  background: #ccc;
-  }
+  position: relative;
+  margin: 1em auto;
+  background: #eee;
+  height: 400px;
+  width: 960px; }
 
 #rob-canvas {
   width: 100%;
-  height: 100%; 
-}
+  height: 100%; }
 
-#log {
-  position: fixed;
+#badge {
+  position: absolute;
   top: 1em;
-  right: 1em;
-  width: 300px;
+  left: 1em;
   z-index: 500;
-  background: #ccc;
-  padding: 1em;
-  display: none; }
+  background: #fff;
+  padding: 1em; }
+  #badge ul {
+    margin: 0;
+    padding: 0; }
+    #badge ul li {
+      list-style: none; }
+  #badge .value {
+    font-weight: 800; }
 
 .inner {
   margin: 10px; }
@@ -47,3 +51,18 @@
   height: 0;
   clear: both;
   visibility: hidden; }
+
+#search-container {
+  position: absolute;
+  top: 1em;
+  right: 1em; }
+  #search-container label {
+    color: #f47f1f;
+    font-size: 125%; }
+  #search-container #txt-searchbox {
+    font-size: 1.5em;
+    padding: 4px; }
+
+#color {
+  width: 100px;
+  height: 100px; }
