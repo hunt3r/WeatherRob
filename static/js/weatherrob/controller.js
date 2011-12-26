@@ -7,17 +7,32 @@ empathylab.weatherrob.Controller = (function() {
 
 		self.updateView();
 		self.bindSearch();
+
+		
+
 	}
 
 	Controller.prototype.updateView = function() {
 		var self = this;
-		self.updateBadge();
-		
+		if(!self.model.hasError) {
+			self.updateBadge();
+			self.updateRob();
+		}
 	};
 
 	Controller.prototype.bindSearch = function() {
 		var self = this;
 		var $searchbox = $('#txt-searchbox');
+		var timeout;
+
+		function startSearchDelay() {
+			timeout = setTimeout(function() {
+				if($searchbox.val().length > 0) {
+					self.model.updateModel($searchbox.val());
+					self.updateView();
+				}
+			}, self.constants.SEARCH.DELAY);
+		}
 
 		$searchbox.keydown(function(e) {
 			
@@ -27,19 +42,27 @@ empathylab.weatherrob.Controller = (function() {
 					self.updateView();
 					break;
 				default:
-					console.log(e.keyCode);
+					clearTimeout(timeout);
+					startSearchDelay();
 					break;
 			}
 		});
 	};
 
+	Controller.prototype.updateRob = function() {
+		var self = this;
+
+		var $element = $("#rob");
+		$element.css("background", self.model.getColor());
+
+	}
+
 	Controller.prototype.updateBadge = function() {
 		var self = this;
 		var tmpl = empathylab.weatherrob.templates.CurrentCondition();
 		self.viewModel.badge = { location : self.model.data.location,
-								 description : self.model.getCurrentWeatherDescription(),
-								 humidity : self.model.data.weatherData.atmosphere.humidity,
-								 temperature : self.model.data.weatherData.condition.temperature,
+								 description : self.model.data.weatherData.condition.text,
+								 weatherData : self.model.data.weatherData,
 								 image: self.model.data.weatherData.condition.image};
 
 		

@@ -1,7 +1,6 @@
-You will need a proxy to make this work.  If you're on a mac, add a vhost to your local apache that looks like this:
+You will need a proxy to make this work.  
 
-
-
+On mac this is located: 
 <VirtualHost *:80>
    DocumentRoot "/Library/WebServer/Documents/weatherrob"
    ServerName weatherrob.local

@@ -9,6 +9,13 @@ empathylab.weatherrob.Constants = function() {
 		URLS : {
 			GEOLOCATION : "api/where/geocode?flags=j&q=",
 			WEATHER : "api/weather/forecastjson?w="
+		},
+		SEARCH : {
+			DELAY : 600
+		},
+		COLOR : {
+			TAN0 : 0xfdece5,
+			TANX : 0x6a3a16
 		}
 	}
 }

@@ -10,7 +10,10 @@ empathylab.weatherrob.Model = (function() {
 function Model(_defaultLocation) {
 	var self = this;
 	self.location;
+	self.utils = new empathylab.weatherrob.Utils();
+	self.hasError = false;
 	self.data = {};
+	self.gradients;
 	self.constants = new empathylab.weatherrob.Constants();
 	self.updateModel(_defaultLocation);
 }
@@ -27,8 +30,12 @@ Model.prototype.getLocation = function(address) {
 		type: 'get',
 		url: searchUrl,
 		success: function(data) {
-			if(data.hasOwnProperty("ResultSet") && data.ResultSet.Results.length>0) {
+			if( data.hasOwnProperty("ResultSet")
+				&& data.ResultSet.hasOwnProperty("Results") 
+				&& data.ResultSet.Results.length>0) {
 				location = data.ResultSet.Results[0];
+			} else {
+				self.hasError=true;
 			}
 		},
 		async: false,
@@ -48,7 +55,12 @@ Model.prototype.getWeather = function(woeid) {
 		type: 'get',
 		url: weatherUrl,
 		success: function(data) {
-			weatherData = data;
+			if(data.code == 500) {
+				self.hasError=true;
+			} else {
+				weatherData = data;
+			}
+
 		},
 		async: false,
 		dataType: 'json'
@@ -59,17 +71,51 @@ Model.prototype.getWeather = function(woeid) {
 
 Model.prototype.updateModel = function(locationSearch) {
 	var self = this;
+
+	//Clear the error each time we update
+	self.hasError = false;
+
+	//Get the location data
 	self.data.location = self.getLocation(locationSearch);
-	if(self.data.location) {
+
+	//If we have a location, get the weather data next
+	if(!self.hasError) {
 		self.data.weatherData = self.getWeather(self.data.location.woeid);
+		self.setColor();
 	}
-	console.log(self.data);
+
+	console.log(self);
+};
+
+Model.prototype.getColor = function() {
+	var self = this;
+
+	var index = Math.floor(self.data.weatherData.condition.temperature/10);
+	console.log(index);
+
+	var rating=""; 
+	if(index >= 0) {
+		rating = self.gradients[index];
+	} else if (index >= self.gradients.length) {
+		rating = self.gradients[self.gradients.length-1];
+	} else {
+		rating = self.gradients[0];
+	} 
+	
+	return "#"+rating.toString(16);
 };
 
 Model.prototype.setColor = function() {
 	var self = this;
+	self.gradients = self.utils.getGradientArray(self.constants.COLOR.TAN0, 
+												self.constants.COLOR.TANX,
+												10);
 	
+	//var index = self.data.weatherData.
+	//return 
 };
+
+
 
 Model.prototype.getCurrentWeatherDescription = function() {
 	var self = this;
