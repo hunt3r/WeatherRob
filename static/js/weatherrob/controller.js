@@ -23,7 +23,7 @@ empathylab.weatherrob.Controller = (function() {
 			
 			switch(e.keyCode) {
 				case 13:
-					self.model.updateModel($searchbox.html());
+					self.model.updateModel($searchbox.val());
 					self.updateView();
 					break;
 				default:
@@ -36,9 +36,11 @@ empathylab.weatherrob.Controller = (function() {
 	Controller.prototype.updateBadge = function() {
 		var self = this;
 		var tmpl = empathylab.weatherrob.templates.CurrentCondition();
-		self.viewModel.badge = { description : self.model.getCurrentWeatherDescription(),
+		self.viewModel.badge = { location : self.model.data.location,
+								 description : self.model.getCurrentWeatherDescription(),
 								 humidity : self.model.data.weatherData.atmosphere.humidity,
-								 temperature : self.model.data.weatherData.condition.temperature};
+								 temperature : self.model.data.weatherData.condition.temperature,
+								 image: self.model.data.weatherData.condition.image};
 
 		
 		var html = Mustache.to_html(tmpl, self.viewModel.badge);
