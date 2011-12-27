@@ -3,13 +3,15 @@ empathylab.weatherrob.Controller = (function() {
 		var self = this;
 		self.constants = new empathylab.weatherrob.Constants();
 		self.model = new empathylab.weatherrob.Model(self.constants.LOCATIONS.CONSHY.ADDRESS);
+		self.$searchbox = $('#txt-searchbox');
+		self.$searchbox.val(self.constants.LOCATIONS.CONSHY.ADDRESS);
+
 		self.viewModel = {};
 
 		self.updateView();
 		self.bindSearch();
 
 		
-
 	}
 
 	Controller.prototype.updateView = function() {
@@ -22,23 +24,22 @@ empathylab.weatherrob.Controller = (function() {
 
 	Controller.prototype.bindSearch = function() {
 		var self = this;
-		var $searchbox = $('#txt-searchbox');
 		var timeout;
 
 		function startSearchDelay() {
 			timeout = setTimeout(function() {
-				if($searchbox.val().length > 0) {
-					self.model.updateModel($searchbox.val());
+				if(self.$searchbox.val().length > 0) {
+					self.model.updateModel(self.$searchbox.val());
 					self.updateView();
 				}
 			}, self.constants.SEARCH.DELAY);
 		}
 
-		$searchbox.keydown(function(e) {
+		self.$searchbox.keydown(function(e) {
 			
 			switch(e.keyCode) {
 				case 13:
-					self.model.updateModel($searchbox.val());
+					self.model.updateModel(self.$searchbox.val());
 					self.updateView();
 					break;
 				default:
