@@ -2,7 +2,7 @@
   position: relative;
   margin: 1em auto;
   background: #eee;
-  height: 400px;
+  height: 600px;
   width: 960px; }
 
 #rob-canvas {
@@ -12,9 +12,7 @@
 #rob {
   position: absolute;
   right: 1em;
-  bottom: 1em;
-  width: 300px;
-  height: 300px; }
+  bottom: 1em; }
 
 #badge {
   position: absolute;
