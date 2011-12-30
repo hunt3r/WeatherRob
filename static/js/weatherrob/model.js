@@ -16,6 +16,7 @@ function Model(_defaultLocation) {
 	self.gradients;
 	self.constants = new empathylab.weatherrob.Constants();
 	self.updateModel(_defaultLocation);
+	self.skinColor;
 }
 
 
@@ -30,9 +31,7 @@ Model.prototype.getLocation = function(address) {
 		type: 'get',
 		url: searchUrl,
 		success: function(data) {
-			if( data.hasOwnProperty("ResultSet")
-				&& data.ResultSet.hasOwnProperty("Results") 
-				&& data.ResultSet.Results.length>0) {
+			if( data.hasOwnProperty("ResultSet") && data.ResultSet.hasOwnProperty("Results") && data.ResultSet.Results.length>0) {
 				location = data.ResultSet.Results[0];
 			} else {
 				self.hasError=true;
@@ -81,28 +80,29 @@ Model.prototype.updateModel = function(locationSearch) {
 	//If we have a location, get the weather data next
 	if(!self.hasError) {
 		self.data.weatherData = self.getWeather(self.data.location.woeid);
+		self.data.weatherData.stats = {};
 		self.setColor();
 	}
 
 	console.log(self);
 };
 
-Model.prototype.getColor = function() {
+
+Model.prototype.calculateRelativeTemperatures = function() {
 	var self = this;
+	var temp = self.data.weatherData.condition.temperature;
+	var windSpeed = self.data.weatherData.wind.speed;
 
-	var index = Math.floor(self.data.weatherData.condition.temperature/10);
-	console.log(index);
-
-	var rating=""; 
-	if(index >= 0) {
-		rating = self.gradients[index];
-	} else if (index >= self.gradients.length) {
-		rating = self.gradients[self.gradients.length-1];
+	//Windchill is only defined 50 degrees or lower and 3 mph and greater wind
+	if(temp < 50 && windSpeed > 3) {
+		self.data.weatherData.stats.windChill = (35.74 + (0.6215 * temp) - (35.75*Math.pow(windSpeed, 0.16)) + (0.4275* temp * (Math.pow(windSpeed, 0.16)))).toFixed(2);
 	} else {
-		rating = self.gradients[0];
-	} 
-	
-	return "#"+rating.toString(16);
+		self.data.weatherData.stats.windChill = temp;
+	}
+
+	self.data.weatherData.stats.
+
+
 };
 
 Model.prototype.setColor = function() {
@@ -111,8 +111,25 @@ Model.prototype.setColor = function() {
 												self.constants.COLOR.TANX,
 												10);
 	
-	//var index = self.data.weatherData.
-	//return 
+	self.calculateRelativeTemperatures();
+
+	var index = Math.floor(self.data.weatherData.stats.windChill/10);
+	var rating=""; 
+
+	if(index >= 0) {
+		rating = self.gradients[index];
+	} else if (index > self.gradients.length) {
+		rating = self.gradients[self.gradients.length-1];
+	} else {
+		rating = self.gradients[0];
+	} 
+
+	self.skinColor = rating;
+};
+
+Model.prototype.getColor = function() {
+	var self = this;
+	return "#"+self.skinColor.toString(16);
 };
 
 
@@ -120,7 +137,7 @@ Model.prototype.setColor = function() {
 Model.prototype.getCurrentWeatherDescription = function() {
 	var self = this;
 	return self.staticData.CONDITION_CODES[self.data.weatherData.condition.code].description;
-}
+};
 
 Model.prototype.staticData = {
 	CONDITION_CODES : { 

@@ -42,7 +42,7 @@ empathylab.weatherrob.Controller = (function() {
 					self.model.updateModel(self.$searchbox.val());
 					self.updateView();
 					break;
-				default:
+				default: //each keystroke resets the timer
 					clearTimeout(timeout);
 					startSearchDelay();
 					break;
@@ -50,13 +50,14 @@ empathylab.weatherrob.Controller = (function() {
 		});
 	};
 
+
 	Controller.prototype.updateRob = function() {
 		var self = this;
 
 		var $element = $("#rob");
 		$element.css("background", self.model.getColor());
 
-	}
+	};
 
 	Controller.prototype.updateBadge = function() {
 		var self = this;
@@ -71,5 +72,6 @@ empathylab.weatherrob.Controller = (function() {
 
 		$("#badge").html(html);	
 	};
+
 	return Controller;
 })();

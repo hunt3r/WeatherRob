@@ -7,6 +7,7 @@ tmpl.push(	'<ul>');
 tmpl.push(		'{{#description}}<li>Currently: <span class="value">{{description}}</span></li>{{/description}}');
 tmpl.push(		'{{#weatherData.condition.temperature}}<li>Temperature: <span class="value">{{weatherData.condition.temperature}}</span></li>{{/weatherData.condition.temperature}}');
 tmpl.push(		'{{#weatherData.atmosphere.humidity}}<li>Humidity: <span class="value">{{weatherData.atmosphere.humidity}}</span></li>{{/weatherData.atmosphere.humidity}}');
+tmpl.push(		'{{#weatherData.stats.windChill}}<li>Windchill: <span class="value">{{weatherData.stats.windChill}}</span></li>{{/weatherData.stats.windChill}}');
 
 tmpl.push(		'{{#image}}<li><img src="{{image}}" /></li>{{/image}}');
 tmpl.push(	'</ul>');
