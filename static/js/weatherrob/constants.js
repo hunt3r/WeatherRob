@@ -14,8 +14,8 @@ empathylab.weatherrob.Constants = function() {
 			DELAY : 600
 		},
 		COLOR : {
-			TAN0 : 0xfdece5,
-			TANX : 0x6a3a16
+			TAN0 : 0xffffff,
+			TANX : 0x66350d
 		}
 	}
 }
