@@ -1,3 +1,9 @@
+//Declare base application package
+var empathylab = {};
+empathylab.weatherrob = {};
+empathylab.weatherrob.templates = {};
+
+
 require.config({
   paths: {
     jquery: 'lib/jquery.min.js',
@@ -10,7 +16,7 @@ require.config({
 
 });
 
-require(['views/app'], function(AppView){
+require(['app'], function(app){
   var app_view = new AppView;
 });
 
