@@ -9,7 +9,8 @@ defaults: {
 	utils: new empathylab.weatherrob.Utils(),
 	location: null,
 	weatherData: null
-}
+};
+
 // getLocation
 // /**
 //  * Constructor

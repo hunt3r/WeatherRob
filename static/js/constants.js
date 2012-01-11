@@ -1,6 +1,6 @@
-empathylab.weatherrob.Constants = function() {
-
-	return {
+define(['underscore','backbone', 'jquery'], 
+function(_, Backbone, $) {
+	var Constants = {
 		LOCATIONS : {
 			CONSHY : {
 				ADDRESS : "101 East 8th Ave, 19428"
@@ -18,4 +18,5 @@ empathylab.weatherrob.Constants = function() {
 			TANX : 0x66350d
 		}
 	}
-}
+	return Constants;
+});
